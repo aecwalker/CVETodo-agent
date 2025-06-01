@@ -72,12 +72,20 @@ endif
 # Run tests
 test:
 	@echo "Running tests..."
+ifeq ($(OS),Windows_NT)
 	$(GOTEST) -v -race ./...
+else
+	$(GOTEST) -v -race -tags=!windows ./...
+endif
 
 # Run tests with coverage
 test-coverage:
 	@echo "Running tests with coverage..."
+ifeq ($(OS),Windows_NT)
 	$(GOTEST) -v -race -coverprofile=coverage.out ./...
+else
+	$(GOTEST) -v -race -coverprofile=coverage.out -tags=!windows ./...
+endif
 	$(GOCMD) tool cover -html=coverage.out -o coverage.html
 
 # Run linting
