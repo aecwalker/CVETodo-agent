@@ -41,6 +41,8 @@ Thumbs.db
 *.yaml
 *.yml
 !configs/config.yaml.example
+!.github/workflows/*.yml
+!.github/workflows/*.yaml
 
 # Log files
 *.log
