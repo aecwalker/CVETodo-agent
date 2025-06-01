@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -19,12 +22,20 @@ jobs:
       - name: Install dependencies
         run: make deps
 
-      - name: Build and package
+      - name: Build for Linux
         run: |
-          make build-all
-          make package
-        env:
-          VERSION: ${GITHUB_REF#refs/tags/v}
+          GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/cvetodo-agent ./cmd/agent
+          tar -czf dist/packages/cvetodo-agent-${{ github.ref_name }}-linux-amd64.tar.gz -C dist/linux-amd64 cvetodo-agent
+
+      - name: Build for Windows
+        run: |
+          GOOS=windows GOARCH=amd64 go build -o dist/windows-amd64/cvetodo-agent.exe ./cmd/agent
+          cd dist/windows-amd64 && zip -r ../packages/cvetodo-agent-${{ github.ref_name }}-windows-amd64.zip cvetodo-agent.exe
+
+      - name: Build for macOS
+        run: |
+          GOOS=darwin GOARCH=amd64 go build -o dist/darwin-amd64/cvetodo-agent ./cmd/agent
+          tar -czf dist/packages/cvetodo-agent-${{ github.ref_name }}-darwin-amd64.tar.gz -C dist/darwin-amd64 cvetodo-agent
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
