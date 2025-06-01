@@ -22,6 +22,13 @@ jobs:
       - name: Install dependencies
         run: make deps
 
+      - name: Create directories
+        run: |
+          mkdir -p dist/linux-amd64
+          mkdir -p dist/windows-amd64
+          mkdir -p dist/darwin-amd64
+          mkdir -p dist/packages
+
       - name: Build for Linux
         run: |
           GOOS=linux GOARCH=amd64 go build -o dist/linux-amd64/cvetodo-agent ./cmd/agent
