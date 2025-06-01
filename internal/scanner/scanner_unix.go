@@ -71,6 +71,23 @@ func (m *Manager) ScanAllPackages() ([]api.Package, error) {
 
 	var allPackages []api.Package
 
+	// Add OS as a package
+	osVersion := getOSVersion()
+	kernelVersion := getKernelVersion()
+
+	osPackage := api.Package{
+		Name:        osVersion,
+		Version:     kernelVersion,
+		Type:        "os",
+		Description: "Operating System",
+	}
+	allPackages = append(allPackages, osPackage)
+
+	m.logger.WithComponent("scanner").
+		WithField("name", osVersion).
+		WithField("version", kernelVersion).
+		Info("added OS package")
+
 	for _, scanner := range m.scanners {
 		m.logger.WithComponent("scanner").WithField("scanner", scanner.Name()).Info("running scanner")
 
@@ -111,10 +128,12 @@ func (m *Manager) GetSystemInfo() api.SystemInfo {
 
 // GetPendingReboot checks if a system reboot is pending
 func (m *Manager) GetPendingReboot() bool {
-	return false // Unix systems don't have a standard way to check for pending reboots
+	// Unix systems don't have a standard way to check for pending reboots
+	return false
 }
 
 // Helper functions for system info
+
 func getOSVersion() string {
 	if runtime.GOOS == "linux" {
 		// Try to read from /etc/os-release
