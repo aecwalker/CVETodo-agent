@@ -5,6 +5,8 @@ reports them back to your dashboard at https://cvetodo.com. The CVETodo system t
 CVEs related to that inventory and immedatly alerts you to any vulnerabilties plus added them to the ToDo list on your
 dashboard.
 
+The source code to the agent is open for anyone to view on Github to ensure transparency in the activies the agent performs.
+
 ## Features
 
 - **Multi-platform package scanning**: Supports Windows, Debian/Ubuntu (dpkg), RedHat/CentOS/SUSE (rpm), Python (pip), and Node.js (npm) packages
