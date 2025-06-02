@@ -1,10 +1,13 @@
 # CVETodo Agent
 
-The CVETodo Agent is a cross-platform system vulnerability scanner that monitors your systems for installed software packages and checks them against known CVE vulnerabilities using the CVETodo API.
+The CVETodo Agent is a cross-platform scanner that monitors your systems for installed software packages and
+reports them back to your dashboard at https://cvetodo.com. The CVETodo system then keeps a constant watch on any
+CVEs related to that inventory and immedatly alerts you to any vulnerabilties plus added them to the ToDo list on your
+dashboard.
 
 ## Features
 
-- **Multi-platform package scanning**: Supports Debian/Ubuntu (dpkg), RedHat/CentOS/SUSE (rpm), Python (pip), and Node.js (npm) packages
+- **Multi-platform package scanning**: Supports Windows, Debian/Ubuntu (dpkg), RedHat/CentOS/SUSE (rpm), Python (pip), and Node.js (npm) packages
 - **Continuous monitoring**: Run as a service to continuously monitor for new vulnerabilities
 - **Flexible configuration**: YAML configuration with environment variable support
 - **Structured logging**: JSON and text format logging with configurable levels
